@@ -46,7 +46,7 @@ public class Snake {
 		
 		
 	}
-	public void update() throws Exception {
+	public void update() throws GameOverException {
 		if (alive) {
 			for(int i=0; i<segments.size();i++) {
 				oldSegments.get(i).move(segments.get(i));
@@ -57,7 +57,7 @@ public class Snake {
 			for (Point s : segments) {
 				if (nextpos.equals(s)) {
 					alive = false;
-					throw new Exception("Snake Died");
+					throw new GameOverException();
 				}
 			}
 			if (nextpos.getx() >= xcells || nextpos.getx() < 0 || nextpos.gety() >= ycells || nextpos.gety() < 0) {
