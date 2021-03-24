@@ -62,7 +62,7 @@ public class Snake {
 			}
 			if (nextpos.getx() >= xcells || nextpos.getx() < 0 || nextpos.gety() >= ycells || nextpos.gety() < 0) {
 				alive = false;
-				throw new Exception("Snake Died");
+				throw new GameOverException();
 			}
 			segments.add(nextpos);
 			

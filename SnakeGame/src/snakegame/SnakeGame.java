@@ -26,7 +26,7 @@ public class SnakeGame {
 		try {
 			snake.update();
 		} catch (GameOverException e) {
-			System.out.print("Game ower");
+			System.out.print("Game over");
 		}
 		snake.animate(asg);
 	}
