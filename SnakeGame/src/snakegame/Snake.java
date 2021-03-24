@@ -38,11 +38,10 @@ public class Snake {
 		}
 	}
 	private void elongate() {
-		int lastIndex = segments.size()-1;
-		Point seg = segments.get(lastIndex).add(moveDir);
-		segments.add(seg);
-		Point oldSeg = oldSegments.get(lastIndex).add(moveDir);
-		oldSegments.add(oldSeg);
+		Point seg = segments.get(0);
+		segments.add(0,seg);
+		Point oldSeg = oldSegments.get(0);
+		oldSegments.add(0,seg);
 		
 		
 	}
@@ -64,13 +63,15 @@ public class Snake {
 				alive = false;
 				throw new GameOverException();
 			}
+
 			segments.add(nextpos);
-			
-			segments.remove(0);
-			if (nextpos.equals(food)) {
+			segments.remove(0);	
+
+			if (head.equals(food)) {
 				putFood();
 				elongate();
 			}
+			
 			/*for (int i = segments.size() - 2; i >= 0; i--) {
 				Point nprevpoint = new Point(segments.get(i));
 				segments.get(i).move(prevpoint);
