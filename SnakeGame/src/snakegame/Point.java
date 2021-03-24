@@ -18,12 +18,12 @@ public class Point {
 		this.x = p.x;
 		this.y = p.y;
 	}
-	public Point addTo(Point p) {
+	public Point increase(Point p) {
 		this.x += p.x;
 		this.y += p.y; 
 		return this;
 	}
-	public Point addTo(int x, int y) {
+	public Point increase(int x, int y) {
 		this.x += x;
 		this.y += y;
 		return this;
@@ -40,12 +40,12 @@ public class Point {
 	public Point sub(int x, int y) {
 		return new Point(this.x - x,this.y - y);
 	}
-	public Point subFrom(Point p ) {
+	public Point decrease(Point p ) {
 		this.x -= p.x;
 		this.y -= p.y;
 		return this;
 	}
-	public Point subFrom(int x, int y) {
+	public Point decrease(int x, int y) {
 		this.x -= x;
 		this.y -= y;
 		return this;

@@ -41,7 +41,7 @@ public class AnimSquareGrid {
 		if (animctr <= animSteps) {
 			//renderer.clear();
 			for (SquareShape s : squares) {
-				s.setCenter(s.getCenter().addTo(s.getAnimDir()));
+				s.setCenter(s.getCenter().increase(s.getAnimDir()));
 			}
 			render();
 			animctr++;

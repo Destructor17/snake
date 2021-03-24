@@ -5,17 +5,17 @@ import java.awt.event.ActionEvent;
 public class SnakeGame {
 	private AnimSquareGrid asg;
 	private SnakeScreen ss;
-	private Snake snek;
+	private Snake snake;
 	public SnakeGame( int width, int height,int xsquares,int ysquares,int smoothness) {
 		ss = new SnakeScreen(width, height);
 		asg = new AnimSquareGrid(ss, ysquares, xsquares, width, height, smoothness);
-		snek = new Snake(3, xsquares, ysquares);
+		snake = new Snake(6, xsquares, ysquares);
 	}
 	public SnakeScreen getScreen() {
 		return ss;
 	}
 	public void tick(ActionEvent e) {
-		if(!asg.isAnimating() && snek.isAlive()) {
+		if(!asg.isAnimating() && snake.isAlive()) {
 			gameLogicTick();
 		}
 		asg.animTick();
@@ -24,10 +24,10 @@ public class SnakeGame {
 	private void gameLogicTick() {
 		
 		try {
-			snek.update();
+			snake.update();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		snek.animate(asg);
+		snake.animate(asg);
 	}
 }

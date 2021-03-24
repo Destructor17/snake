@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 public class Snake {
 	List<Point> segments;
+	List<Point> oldSegments;
 	Point moveDir;
 	Point food;
 	int xcells;
@@ -19,9 +20,12 @@ public class Snake {
 		moveDir = new Point(1,0);
 		Point start = new Point(20,20);
 		segments = new ArrayList<>();
+		oldSegments = new ArrayList<>();
 		putFood();
-		for(int i = 0;i<length;i++) {
-			segments.add(new Point(start.addTo(0, 1)));
+		for(int i = 0;i<length;i++)
+		{
+			segments.add(new Point(start.increase(0, 1)));
+			oldSegments.add(new Point(start));
 		}
 	}
 	private void putFood() {
@@ -34,11 +38,19 @@ public class Snake {
 		}
 	}
 	private void elongate() {
-		Point newseg = segments.get(0).sub(segments.get(1)).add(segments.get(0));
-		segments.add(0,newseg);
+		int lastIndex = segments.size()-1;
+		Point seg = segments.get(lastIndex).add(moveDir);
+		segments.add(seg);
+		Point oldSeg = oldSegments.get(lastIndex).add(moveDir);
+		oldSegments.add(oldSeg);
+		
+		
 	}
 	public void update() throws Exception {
 		if (alive) {
+			for(int i=0; i<segments.size();i++) {
+				oldSegments.get(i).move(segments.get(i));
+			}
 			moveDir = KeyEventHandler.getDir().equals(moveDir.scalMul(-1)) ? moveDir : KeyEventHandler.getDir();
 			Point head = segments.get(segments.size() - 1);
 			Point nextpos = head.add(moveDir);
@@ -48,17 +60,17 @@ public class Snake {
 					throw new Exception("Snake Died");
 				}
 			}
-			if (nextpos.equals(food)) {
-				putFood();
-				elongate();
-			} else if (nextpos.getx() >= xcells || nextpos.getx() < 0 || nextpos.gety() >= ycells || nextpos.gety() < 0) {
+			if (nextpos.getx() >= xcells || nextpos.getx() < 0 || nextpos.gety() >= ycells || nextpos.gety() < 0) {
 				alive = false;
 				throw new Exception("Snake Died");
 			}
 			segments.add(nextpos);
 			
-			System.out.println(head);
 			segments.remove(0);
+			if (nextpos.equals(food)) {
+				putFood();
+				elongate();
+			}
 			/*for (int i = segments.size() - 2; i >= 0; i--) {
 				Point nprevpoint = new Point(segments.get(i));
 				segments.get(i).move(prevpoint);
@@ -68,11 +80,13 @@ public class Snake {
 	}
 	public void animate(AnimSquareGrid asg) {
 		asg.clear();
-		for (int i = 0; i < segments.size()-1;i++) {
-			Point animdir = segments.get(i+1).sub(segments.get(i));
-			asg.addSquare(segments.get(i), animdir);
+		for (int i = 0; i < segments.size();i++) {
+			Point animdir = segments.get(i).
+					sub(oldSegments.get(i));
+			asg.addSquare(oldSegments.get(i), animdir);
 		}
-		asg.addSquare(segments.get(segments.size()-1), moveDir);
+
+		
 		asg.addSquare(food, new Point(0,0));
 		asg.doAnim();
 	}
