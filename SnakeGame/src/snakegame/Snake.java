@@ -28,14 +28,22 @@ public class Snake {
 			oldSegments.add(new Point(start));
 		}
 	}
-	private void putFood() {
-		int newx = rng.nextInt(xcells);
-		int newy = rng.nextInt(ycells);
-		if (food == null) {
-			food = new Point(newx,newy);
-		} else {
-			food.move(newx, newy);
+	private boolean isFoodValid() {
+		for(Point s: segments) {
+			if(s.equals(food)) return false;
 		}
+		return true;
+	}
+	private void putFood() {
+		do {
+			int newx = rng.nextInt(xcells);
+			int newy = rng.nextInt(ycells);
+			if (food == null) {
+				food = new Point(newx,newy);
+			} else {
+				food.move(newx, newy);
+			}
+		} while(!isFoodValid());
 	}
 	private void elongate() {
 		Point seg = segments.get(0);

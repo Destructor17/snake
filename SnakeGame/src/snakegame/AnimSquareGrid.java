@@ -8,7 +8,6 @@ public class AnimSquareGrid {
 	private int yelems;
 	private int elemsize;
 	private int elemClearance;
-	private float animSteps;
 	private float deltaPhase;
 	private float phase;
 	private int height;
@@ -29,8 +28,6 @@ public class AnimSquareGrid {
 		}
 		elemClearance = (int) Math.round(elemsize * 0.1);
 		elemsize -= elemClearance;
-		
-		this.animSteps = animSteps;
 		this.renderer = renderer;
 		squares = new ArrayList<>();
 	}
@@ -59,9 +56,6 @@ public class AnimSquareGrid {
 	private Point convertPos(Point p){
 		int x = (elemsize/2) + (p.x)*(elemsize + elemClearance);
 		int y = (elemsize/2) + (p.y)*(elemsize + elemClearance);
-		if (p.x == 49 || p.y == 49) {
-			System.out.println(x + " " + y);
-		}
 		return new Point(x,y);
 	}
 	public void addSquare(Point pos,Point animdir) {
