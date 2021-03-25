@@ -19,8 +19,8 @@ public class Main {
     {
         JFrame frame = new JFrame("Snake");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(s);
-        frame.setSize(new Dimension(width+10, height+30));
+        frame.getContentPane().add(s);
+        frame.setSize(new Dimension(width+16, height+39));
         frame.setResizable(false);
         frame.addKeyListener(new KeyEventHandler());
         frame.setVisible(true);          
@@ -30,7 +30,7 @@ public class Main {
 		s = game.getScreen();
 		gameTimer = new javax.swing.Timer(1000 / targetFPS, game::tick);
 		gameTimer.start();
-		JFrame.setDefaultLookAndFeelDecorated(true);
+		JFrame.setDefaultLookAndFeelDecorated(false);
 		javax.swing.SwingUtilities.invokeLater(Main::createGUI);
 	}
 

@@ -40,7 +40,6 @@ public class Snake {
 	private void elongate() {
 		Point seg = segments.get(0);
 		segments.add(0,seg);
-		Point oldSeg = oldSegments.get(0);
 		oldSegments.add(0,seg);
 		
 		
