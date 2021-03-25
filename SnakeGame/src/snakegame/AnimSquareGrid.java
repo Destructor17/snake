@@ -74,7 +74,7 @@ public class AnimSquareGrid {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int stepval = (elemsize + elemClearance) / animSteps;
+		int stepval = (int)Math.ceil((elemsize + elemClearance) / (double)animSteps);
 		squares.add(new SquareShape(realpos, elemsize, new Point(animdir).scalMulWith(stepval)));
 	}
 	public void clear() {
