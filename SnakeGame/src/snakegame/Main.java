@@ -20,7 +20,7 @@ public class Main {
 		frame.getContentPane().removeAll();
 		gameTimer.stop();
 		game = null;
-		frame.getContentPane().add(new JLabel("YOU DIED"));
+		frame.getContentPane().add(new JLabel("YOU DIED with score " + score));
 		frame.setVisible(true);
 	}
 	public static void createGUI()

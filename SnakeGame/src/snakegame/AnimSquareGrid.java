@@ -8,18 +8,19 @@ public class AnimSquareGrid {
 	private int yelems;
 	private int elemsize;
 	private int elemClearance;
-	private int animSteps;
-	private int animctr;
+	private float deltaPhase;
+	private float phase;
 	private int height;
 	private int width;
 	private List<SquareShape> squares;
 	private IRenderer renderer;
-	public AnimSquareGrid(IRenderer renderer,int xelems,int yelems, int width,int height,int animSteps) {
+	public AnimSquareGrid(IRenderer renderer,int xelems,int yelems, int width,int height,float deltaPhase) {
 		this.xelems = xelems;
 		this.yelems = yelems;
 		this.height = height;
 		this.width = width;
-		animctr = 0;
+		this.deltaPhase = deltaPhase;
+		phase = 0;
 		if (Math.min(width, height) == height) {
 			elemsize = height / yelems;
 		} else {
@@ -27,55 +28,39 @@ public class AnimSquareGrid {
 		}
 		elemClearance = (int) Math.round(elemsize * 0.1);
 		elemsize -= elemClearance;
-		
-		this.animSteps = animSteps;
 		this.renderer = renderer;
 		squares = new ArrayList<>();
 	}
 	public void doAnim() {
-		if (animctr >= animSteps) {
-			animctr = 0;
+		if (phase >= 1) {
+			phase -= 1;
 		}
 	}
 	public void animTick() {
-		if (animctr <= animSteps) {
+		if (phase < 1) {
 			//renderer.clear();
-			for (SquareShape s : squares) {
-				s.setCenter(s.getCenter().increase(s.getAnimDir()));
-			}
 			render();
-			animctr++;
+			phase+=deltaPhase;
 		}
 	}
 	public boolean isAnimating() {
-		return animctr <= animSteps;
+		return phase < 1;
 	}
 	private void render() {
 		renderer.clear();
 		for (SquareShape s : squares) {
-			Point topLeft = s.getCornerTL();
-			Point bottomRight = s.getCornerBR();
-			renderer.drawRect(topLeft.getx(), topLeft.gety(), bottomRight.getx(), bottomRight.gety());
+			Point center = s.lerp(phase);
+			renderer.drawRect(center.x-s.size/2, center.y-s.size/2, center.x+s.size/2, center.y+s.size/2);
 		}
 	}
-	private Point convertPos(Point p) throws Exception {
-		int x = (elemsize/2) + (p.getx())*(elemsize + elemClearance);
-		int y = (elemsize/2) + (p.gety())*(elemsize + elemClearance);
-		if (p.getx() == 49 || p.gety() == 49) {
-			System.out.println(x + " " + y);
-		}
+	private Point convertPos(Point p){
+		int x = (elemsize/2) + (p.x)*(elemsize + elemClearance);
+		int y = (elemsize/2) + (p.y)*(elemsize + elemClearance);
 		return new Point(x,y);
 	}
 	public void addSquare(Point pos,Point animdir) {
-		Point realpos = null;
-		try {
-			realpos = convertPos(pos);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int stepval = (int)Math.ceil((elemsize + elemClearance) / (double)animSteps);
-		squares.add(new SquareShape(realpos, elemsize, new Point(animdir).scalMulWith(stepval)));
+		//int stepval = (int)Math.ceil((elemsize + elemClearance) / (double)animSteps);
+		squares.add(new SquareShape(convertPos(pos), convertPos(pos.add(animdir)),elemsize));
 	}
 	public void clear() {
 		squares.clear();

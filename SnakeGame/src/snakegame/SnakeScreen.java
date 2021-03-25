@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 
 public class SnakeScreen extends Canvas implements IRenderer {
 	private static final long serialVersionUID = 1L;
-	private static int width;
-	private static int height;
+	private int width;
+	private int height;
 	Image img;
 	public SnakeScreen(int width,int height) {
 		super();
