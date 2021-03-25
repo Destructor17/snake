@@ -14,7 +14,7 @@ public class Main {
 	private static final int width = 500;
 	private static final int height = 500;
 	private static final int targetFPS = 60;
-	private static final int animDurationMS = 300;
+	private static final int animDurationMS = 100;
 	public static void createGUI()
     {
         JFrame frame = new JFrame("Snake");
