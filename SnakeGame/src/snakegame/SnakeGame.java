@@ -8,9 +8,9 @@ public class SnakeGame {
 	private SnakeScreen ss;
 	private Snake snake;
 	private Consumer<Integer> gameOverHandler;
-	public SnakeGame( int width, int height,int xsquares,int ysquares,int smoothness) {
+	public SnakeGame( int width, int height,int xsquares,int ysquares,float animSteps) {
 		ss = new SnakeScreen(width, height);
-		asg = new AnimSquareGrid(ss, ysquares, xsquares, width, height, smoothness);
+		asg = new AnimSquareGrid(ss, ysquares, xsquares, width, height, 1/animSteps);
 		snake = new Snake(6, xsquares, ysquares);
 	}
 	public SnakeScreen getScreen() {

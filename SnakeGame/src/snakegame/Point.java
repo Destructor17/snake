@@ -58,12 +58,6 @@ public class Point {
 	public Point scalMul(int mul) {
 		return new Point(this).scalMulWith(mul);
 	}
-	public int getx() {
-		return x;
-	}
-	public int gety() {
-		return y;
-	}
 	public boolean equals(Point p) {
 		return x == p.x && y == p.y;
 	}
