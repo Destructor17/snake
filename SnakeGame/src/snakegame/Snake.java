@@ -31,22 +31,29 @@ public class Snake {
 	public int getLength() {
 		return segments.size();
 	}
-	private void putFood() {
-		int newx = rng.nextInt(xcells);
-		int newy = rng.nextInt(ycells);
-		if (food == null) {
-			food = new Point(newx,newy);
-		} else {
-			food.move(newx, newy);
-		}
-	}
+
 	private void elongate() {
 		Point seg = segments.get(0);
 		segments.add(0,seg);
-		Point oldSeg = oldSegments.get(0);
 		oldSegments.add(0,seg);
-		
-		
+	}
+
+	private boolean isFoodValid() {
+		for(Point s: segments) {
+			if(s.equals(food)) return false;
+		}
+		return true;
+	}
+	private void putFood() {
+		do {
+			int newx = rng.nextInt(xcells);
+			int newy = rng.nextInt(ycells);
+			if (food == null) {
+				food = new Point(newx,newy);
+			} else {
+				food.move(newx, newy);
+			}
+		} while(!isFoodValid());
 	}
 	public void update() throws GameOverException {
 		if (alive) {
