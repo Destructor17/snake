@@ -13,8 +13,8 @@ public class Main {
 	private static SnakeGame game;
 	private static final int width = 500;
 	private static final int height = 500;
-	private static final int targetFPS = 60;
-	private static final int animDurationMS = 100;
+	private static final int targetFPS = 50;
+	private static final int animDurationMS = 49;
 	public static void createGUI()
     {
         JFrame frame = new JFrame("Snake");
@@ -26,7 +26,8 @@ public class Main {
         frame.setVisible(true);          
    }
 	public static void main(String[] args) {
-		game = new SnakeGame(width, height, 50, 50, animDurationMS / targetFPS);
+		System.out.println(animDurationMS*targetFPS/1000);
+		game = new SnakeGame(width, height, 50, 50, animDurationMS*targetFPS/1000f);
 		s = game.getScreen();
 		gameTimer = new javax.swing.Timer(1000 / targetFPS, game::tick);
 		gameTimer.start();

@@ -58,7 +58,7 @@ public class Snake {
 					throw new GameOverException();
 				}
 			}
-			if (nextpos.getx() >= xcells || nextpos.getx() < 0 || nextpos.gety() >= ycells || nextpos.gety() < 0) {
+			if (nextpos.x >= xcells || nextpos.x < 0 || nextpos.y >= ycells || nextpos.y < 0) {
 				alive = false;
 				throw new GameOverException();
 			}
