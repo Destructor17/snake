@@ -1,11 +1,13 @@
 package snakegame;
 
 import java.awt.event.ActionEvent;
+import java.util.function.Consumer;
 
 public class SnakeGame {
 	private AnimSquareGrid asg;
 	private SnakeScreen ss;
 	private Snake snake;
+	private Consumer<Integer> gameOverHandler;
 	public SnakeGame( int width, int height,int xsquares,int ysquares,int smoothness) {
 		ss = new SnakeScreen(width, height);
 		asg = new AnimSquareGrid(ss, ysquares, xsquares, width, height, smoothness);
@@ -13,6 +15,9 @@ public class SnakeGame {
 	}
 	public SnakeScreen getScreen() {
 		return ss;
+	}
+	public void registerGameOverHandler(Consumer<Integer> cons) {
+		gameOverHandler = cons;
 	}
 	public void tick(ActionEvent e) {
 		if(!asg.isAnimating() && snake.isAlive()) {
@@ -26,7 +31,7 @@ public class SnakeGame {
 		try {
 			snake.update();
 		} catch (GameOverException e) {
-			System.out.print("Game over");
+			gameOverHandler.accept(snake.getLength());
 		}
 		snake.animate(asg);
 	}

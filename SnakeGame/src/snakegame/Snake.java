@@ -28,6 +28,9 @@ public class Snake {
 			oldSegments.add(new Point(start));
 		}
 	}
+	public int getLength() {
+		return segments.size();
+	}
 	private void putFood() {
 		int newx = rng.nextInt(xcells);
 		int newy = rng.nextInt(ycells);

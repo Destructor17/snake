@@ -15,6 +15,9 @@ public class Main {
 	private static final int height = 500;
 	private static final int targetFPS = 60;
 	private static final int animDurationMS = 300;
+	public static void onGameOver(int score) {
+		
+	}
 	public static void createGUI()
     {
         JFrame frame = new JFrame("Snake");
