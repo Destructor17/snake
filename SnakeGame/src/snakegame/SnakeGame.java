@@ -31,7 +31,7 @@ public class SnakeGame {
 		try {
 			snake.update();
 		} catch (GameOverException e) {
-			gameOverHandler.accept(snake.getLength());
+			gameOverHandler.accept(snake.getScore());
 		}
 		snake.animate(asg);
 	}

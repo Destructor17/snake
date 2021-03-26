@@ -10,6 +10,7 @@ public class Snake {
 	Point food;
 	int xcells;
 	int ycells;
+	int startLength;
 	Random rng;
 	boolean alive;
 	public Snake(int length,int xcells, int ycells) {
@@ -22,14 +23,15 @@ public class Snake {
 		segments = new ArrayList<>();
 		oldSegments = new ArrayList<>();
 		putFood();
+		startLength = length;
 		for(int i = 0;i<length;i++)
 		{
 			segments.add(new Point(start.increase(0, 1)));
 			oldSegments.add(new Point(start));
 		}
 	}
-	public int getLength() {
-		return segments.size();
+	public int getScore() {
+		return segments.size() - startLength;
 	}
 
 	private void elongate() {
