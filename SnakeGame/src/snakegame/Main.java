@@ -28,9 +28,10 @@ public class Main {
     {
         frame = new JFrame("Snake");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(s);
-        frame.setSize(new Dimension(width+16, height+39));
+        frame.add(s);
+        //frame.setSize(new Dimension(width+16, height+39));
         frame.setResizable(false);
+        frame.pack();
         frame.addKeyListener(new KeyEventHandler());
         frame.setVisible(true);          
    }
