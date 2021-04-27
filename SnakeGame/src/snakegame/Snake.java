@@ -18,7 +18,7 @@ public class Snake {
 		this.ycells = ycells;
 		rng = new Random();
 		alive = true;
-		moveDir = new Point(1,0);
+		moveDir = new Point(0,1);
 		Point start = new Point(20,20);
 		segments = new ArrayList<>();
 		oldSegments = new ArrayList<>();

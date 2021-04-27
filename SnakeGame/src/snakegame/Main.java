@@ -32,6 +32,7 @@ public class Main {
 	public static void restartListener(ActionEvent e) {
 		frame.getContentPane().removeAll();
 		frame.setVisible(false);
+		game = null;
 		createGUI();
 	}
 	public static void initGUI()
@@ -47,12 +48,12 @@ public class Main {
 		game.registerGameOverHandler(Main::onGameOver);
 		s = game.getScreen();
 		gameTimer = new javax.swing.Timer(1000 / targetFPS, game::tick);
-		gameTimer.start();
         frame.add(s);
         //frame.setSize(new Dimension(width+16, height+39));
         frame.setResizable(false);
         frame.pack();
-        frame.setVisible(true); 
+        frame.setVisible(true);
+		gameTimer.start();
 	}
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(false);
